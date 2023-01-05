@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Solitaire {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int[] piles = new int[7];
+        int score = 0;
+        int lastScore = 0;
+
+        // Initialize piles
+        for (int i = 0; i < 7; i++) {
+            piles[i] = in.nextInt();
+        }
+
+        while (true) {
+            // Print current state of piles
+            for (int i = 0; i < 7; i++) {
+                System.out.print(piles[i] + " ");
+            }
+            System.out.println();
+
+            // Check if game is over
+            boolean gameOver = true;
+            for (int i = 0; i < 7; i++) {
+                if (piles[i] > 0) {
+                    gameOver = false;
+                    break;
+                }
+            }
+            if (gameOver) {
+                break;
+            }
+
+            // Get next move
+            System.out.print("Enter pile number: ");
+            int pile = in.nextInt();
+            System.out.print("Enter number of stones to remove: ");
+            int stones = in.nextInt();
+
+            // Update piles and score
+            piles[pile - 1] -= stones;
+            score += stones;
+            if (score == lastScore) {
+                score += stones;
+            }
+            lastScore = score;
+        }
+
+        System.out.println("Game over! Final score: " + score);
+    }
+}
